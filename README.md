@@ -1,5 +1,5 @@
 <h1>WebPage Parser</h1>
-This is a module for comfortable web-pages parsing. It provides convient API for curl and gumbo: extrcting html code from web-page and any useful for you data from tags in html code.
+This is a module for comfortable web-pages parsing. It provides convient API for curl and gumbo: extracting html code from web-page and any useful for you data from tags in html code.
 <h2>There are class provided:</h2>
 <b>Tag</b>
 <h3>With following methods in it:</h3>
