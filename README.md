@@ -73,3 +73,9 @@ This is a module for comfortable web-pages parsing. It provides convient API for
                           const GumboTag &_excTag);
     inline explicit
     fn operator bool() const;
+
+
+<h1>How to compile</h1>
+You are provided with CMakeLists.txt. You task is only to call cmake to compile:<br>
+<code>cmake -S . -B build_debug -G "[your build system]" -DCMAKE_MAKE_PROGRAM="[path to your build system]"</code><br>
+<code>cmake --build build_debug</code>
