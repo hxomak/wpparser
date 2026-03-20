@@ -8,8 +8,7 @@
 #include "Tag.h"
 
 template<typename T>
-auto
-fn operator+=(std::vector<T> &_lv, const std::vector<T> &_rv) -> std::vector<T> & {
+std::vector<T>& operator+=(std::vector<T> &_lv, const std::vector<T> &_rv) {
     _lv.insert(_lv.end(), _rv.begin(), _rv.end());
     return _lv;
 }
@@ -21,8 +20,7 @@ fn operator+=(std::vector<T> &_lv, const std::vector<T> &_rv) -> std::vector<T> 
  * @param _str text to split into words
  * @return Vector of split words
  */
-auto
-fn SplitStr(const std::string &_str) -> std::vector<std::string>;
+std::vector<std::string> SplitStr(const std::string &_str);
 
 /**
  * @brief Replaces all repeated spaces and whitespaces like t, r, n
@@ -31,8 +29,7 @@ fn SplitStr(const std::string &_str) -> std::vector<std::string>;
  * @param _str text to edit
  * @return Text without unnecessary white spaces
  */
-auto
-fn RemoveWhspaces(const std::string &_str) -> std::string;
+std::string RemoveWhspaces(const std::string &_str);
 
 /**
  * @brief Replaces special symbols
@@ -41,11 +38,9 @@ fn RemoveWhspaces(const std::string &_str) -> std::string;
  * @param _str text to edit
  * @return Text with replaces special symbols
  */
-auto
-fn EscapeHtml(const std::string_view &_str) -> std::string;
+std::string EscapeHtml(const std::string_view &_str);
 
-auto
-fn GetTagStr(const GumboStringPiece &_piece) -> std::string;
+std::string GetTagStr(const GumboStringPiece &_piece);
 
 /**
  * @brief Finds first tag whose attribute values
@@ -60,11 +55,10 @@ fn GetTagStr(const GumboStringPiece &_piece) -> std::string;
  * @return The first found tag with attribute value that
  * equals to attr_value
  */
-auto
-fn ExtractTag(const std::vector<Tag> &_tags,
-              GumboTag _tagName,
-              const std::string &_attrName,
-              const std::string &_attrValue) -> Tag;
+Tag ExtractTag(const std::vector<Tag> &_tags,
+               GumboTag _tagName,
+               const std::string &_attrName,
+               const std::string &_attrValue);
 
 std::string MakeOneLine(const std::string &_input);
 

@@ -6,29 +6,25 @@
 #include "utils.h"
 
 struct Node {
-    fn Node()
+    Node()
         : node(nullptr) {}
 
-    fn Node(GumboNode *_node)
+    Node(GumboNode *_node)
         : node(_node) {}
 
-    inline explicit
-    fn operator bool() const {
+    inline explicit operator bool() const {
         return node != nullptr;
     }
 
-    inline auto
-    fn operator!() const -> bool {
+    inline bool operator!() const {
         return node == nullptr;
     }
 
-    inline auto
-    fn GetNode() const -> GumboNode * {
+    inline GumboNode* GetNode() const {
         return node;
     }
 
-    inline auto
-    fn SetNode(GumboNode *_node) -> void {
+    inline void SetNode(GumboNode *_node) {
         node = _node;
     }
 

@@ -18,67 +18,55 @@
 
 class Tag {
 public:
-    fn Tag();
+    Tag();
 
-    fn Tag(const Node &_node);
+    Tag(const Node &_node);
 
-    fn Tag(const Tag &_tag);
+    Tag(const Tag &_tag);
 
-    fn Tag(GumboNode *_node);
+    Tag(GumboNode *_node);
 
     void MakeRoot(const std::string &_htmlCode);
 
-    auto
-    fn operator=(const Node &_node) -> Tag &;
+    Tag& operator=(const Node &_node);
 
 public:
-    auto
-    fn GetNode() const -> GumboNode *;
+    GumboNode* GetNode() const;
 
-    GumboOutput *GetOutput();
+    GumboOutput* GetOutput();
 
-    auto
-    fn SetNode(GumboNode *_node) -> void;
+    void SetNode(GumboNode *_node);
 
-    auto
-    fn SetNode(Node _node) -> void;
+    void SetNode(Node _node);
 
 public:
-    auto
-    fn GetText() const -> std::string;
+    std::string GetText() const;
 
-    auto
-    fn FindTag(GumboTag _tag,
-               const std::string &_attrName,
-               const std::string &_attrValue) const -> Tag;
+    Tag FindTag(GumboTag _tag,
+                const std::string &_attrName,
+                const std::string &_attrValue) const;
 
-    auto
-    fn FindAllTags(GumboTag _tag,
-                   const std::string &_attrName,
-                   const std::string &_attrValue) -> std::vector<Tag>;
+    std::vector<Tag> FindAllTags(GumboTag _tag,
+                                   const std::string &_attrName,
+                                   const std::string &_attrValue);
 
-    auto
-    fn FindTagAnyval(GumboTag _tag,
-                     const std::string &_attrName,
-                     const std::string &_attrValue) const -> Tag;
+    Tag FindTagAnyval(GumboTag _tag,
+                      const std::string &_attrName,
+                      const std::string &_attrValue) const;
 
-    auto
-    fn FindTagAnysubval(GumboTag _tag,
-                        const std::string &_attrName,
-                        const std::string &_attrValue) const -> Tag;
-
-    auto
-    fn FindAllTagsAnyval(GumboTag _tag,
+    Tag FindTagAnysubval(GumboTag _tag,
                          const std::string &_attrName,
-                         const std::string &_attrValue) const -> std::vector<Tag>;
+                         const std::string &_attrValue) const;
 
-    auto
-    fn FindAllTagsAnysubval(GumboTag _tag,
-                            const std::string &_attrName,
-                            const std::string &_attrValue) const -> std::vector<Tag>;
+    std::vector<Tag> FindAllTagsAnyval(GumboTag _tag,
+                                         const std::string &_attrName,
+                                         const std::string &_attrValue) const;
 
-    auto
-    fn GetHtmlView() -> std::string;
+    std::vector<Tag> FindAllTagsAnysubval(GumboTag _tag,
+                                             const std::string &_attrName,
+                                             const std::string &_attrValue) const;
+
+    std::string GetHtmlView();
 
     Tag FindTagWithClassExc(GumboTag _targetTag, const std::string &_attrName,
                             const std::string &_attrValue,
@@ -89,8 +77,7 @@ public:
                           const GumboTag &_excTag);
 
 public:
-    inline explicit
-    fn operator bool() const {
+    inline explicit operator bool() const {
         return tag.GetNode() != nullptr;
     }
 

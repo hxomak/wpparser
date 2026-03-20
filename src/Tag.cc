@@ -2,16 +2,16 @@
 #include "../include/node.h"
 #include "../include/parser.h"
 
-fn Tag::Tag()
+Tag::Tag()
     : tag(), output() {}
 
-fn Tag::Tag(const Node &_node)
+Tag::Tag(const Node &_node)
     : tag(_node.GetNode()), output() {}
 
-fn Tag::Tag(const Tag &_tag)
+Tag::Tag(const Tag &_tag)
     : tag(_tag.tag.GetNode()), output() {}
 
-fn Tag::Tag(GumboNode *_node)
+Tag::Tag(GumboNode *_node)
     : tag(_node), output() {}
 
 void Tag::MakeRoot(const std::string &_htmlCode) {
@@ -19,14 +19,12 @@ void Tag::MakeRoot(const std::string &_htmlCode) {
     this->tag = this->output->root;
 }
 
-auto
-fn Tag::operator=(const Node &_node) -> Tag & {
+Tag &Tag::operator=(const Node &_node) {
     this->tag.SetNode(_node.GetNode());
     return *this;
 }
 
-auto
-fn Tag::GetNode() const -> GumboNode * {
+GumboNode *Tag::GetNode() const {
     return this->tag.GetNode();
 }
 
@@ -34,71 +32,61 @@ GumboOutput *Tag::GetOutput() {
     return this->output;
 }
 
-auto
-fn Tag::SetNode(GumboNode *_node) -> void {
+void Tag::SetNode(GumboNode *_node) {
     this->tag.SetNode(_node);
 }
 
-auto
-fn Tag::SetNode(Node _node) -> void {
+void Tag::SetNode(Node _node) {
     this->tag.SetNode(_node.GetNode());
 }
 
-auto
-fn Tag::GetText() const -> std::string {
+std::string Tag::GetText() const {
     return ::GetText(this->tag);
 }
 
-auto
-fn Tag::FindTag(GumboTag _tag,
+Tag Tag::FindTag(GumboTag _tag,
                 const std::string &_attrName,
-                const std::string &_attrValue) const -> Tag {
+                const std::string &_attrValue) const {
     return ::FindTag(this->tag, _tag, _attrName, _attrValue);
 }
 
-auto
-fn Tag::FindAllTags(GumboTag _tag,
-                    const std::string &_attrName,
-                    const std::string &_attrValue) -> std::vector<Tag> {
+std::vector<Tag> Tag::FindAllTags(GumboTag _tag,
+                                    const std::string &_attrName,
+                                    const std::string &_attrValue) {
     return ::FindAllTags(this->tag, _tag, _attrName, _attrValue);
 }
 
-auto
-fn Tag::FindTagAnyval(GumboTag _tag,
+Tag Tag::FindTagAnyval(GumboTag _tag,
                       const std::string &_attrName,
-                      const std::string &_attrValue) const -> Tag {
+                      const std::string &_attrValue) const {
     return ::FindTagAnyval(this->tag, _tag, _attrName, _attrValue);
 }
 
-auto
-fn Tag::FindTagAnysubval(GumboTag _tag,
-                         const std::string &_attrName,
-                         const std::string &_attrValue) const -> Tag {
+Tag Tag::FindTagAnysubval(GumboTag _tag,
+                          const std::string &_attrName,
+                          const std::string &_attrValue) const {
     return ::FindTagAnysubval(this->tag, _tag, _attrName, _attrValue);
 }
 
-auto
-fn Tag::FindAllTagsAnyval(GumboTag _tag,
-                          const std::string &_attrName,
-                          const std::string &_attrValue) const -> std::vector<Tag> {
+std::vector<Tag> Tag::FindAllTagsAnyval(GumboTag _tag,
+                                          const std::string &_attrName,
+                                          const std::string &_attrValue) const {
     return ::FindAllTagsAnyval(this->tag, _tag, _attrName, _attrValue);
 }
 
-auto
-fn Tag::FindAllTagsAnysubval(GumboTag _tag,
-                             const std::string &_attrName,
-                             const std::string &_attrValue) const -> std::vector<Tag> {
+std::vector<Tag> Tag::FindAllTagsAnysubval(GumboTag _tag,
+                                              const std::string &_attrName,
+                                              const std::string &_attrValue) const {
     return ::FindAllTagsAnysubval(this->tag, _tag, _attrName, _attrValue);
 }
 
-auto
-fn Tag::GetHtmlView() -> std::string {
+std::string Tag::GetHtmlView() {
     return ::GetHtmlView(*this);
 }
 
 Tag Tag::__FindTagWithClassExc(Tag &_tag, GumboTag _targetTag, const std::string &_attrName,
-                               const std::string &_attrValue,
-                               const std::string &_excClass) {
+                                const std::string &_attrValue,
+                                const std::string &_excClass) {
     if (!_tag || _tag.GetNode()->type != GUMBO_NODE_ELEMENT)
         return {};
 
@@ -129,8 +117,8 @@ Tag Tag::__FindTagWithClassExc(Tag &_tag, GumboTag _targetTag, const std::string
 }
 
 Tag Tag::__FindTagWithTagExc(Tag &_tag, GumboTag _targetTag, const std::string &_attrName,
-                             const std::string &_attrValue,
-                             const GumboTag &_excTag) {
+                              const std::string &_attrValue,
+                              const GumboTag &_excTag) {
     if (!_tag || _tag.GetNode()->type != GUMBO_NODE_ELEMENT)
         return {};
 
@@ -158,13 +146,13 @@ Tag Tag::__FindTagWithTagExc(Tag &_tag, GumboTag _targetTag, const std::string &
 }
 
 Tag Tag::FindTagWithClassExc(GumboTag _targetTag, const std::string &_attrName,
-                             const std::string &_attrValue,
-                             const std::string &_excClass) {
+                              const std::string &_attrValue,
+                              const std::string &_excClass) {
     return __FindTagWithClassExc(*this, _targetTag, _attrName, _attrValue, _excClass);
 }
 
 Tag Tag::FindTagWithTagExc(GumboTag _targetTag, const std::string &_attrName,
-                           const std::string &_attrValue,
-                           const GumboTag &_excTag) {
+                            const std::string &_attrValue,
+                            const GumboTag &_excTag) {
     return __FindTagWithTagExc(*this, _targetTag, _attrName, _attrValue, _excTag);
 }

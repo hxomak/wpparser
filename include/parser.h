@@ -17,8 +17,7 @@
  * @return All text with spaces between them from the
  * tag and inner tags
  */
-auto
-fn GetText(const Tag _tag) -> std::string;
+std::string GetText(const Tag _tag);
 
 /**
  * @brief Finds first tag with this attribute in this node.
@@ -31,11 +30,10 @@ fn GetText(const Tag _tag) -> std::string;
  * @param attr_value attribute value to search for
  * @return The first found tag with the same tag attribute name and value
  */
-auto
-fn FindTag(const Tag _tag,
-           GumboTag _tagName,
-           const std::string &_attrName,
-           const std::string &_attrValue) -> Tag;
+Tag FindTag(const Tag _tag,
+            GumboTag _tagName,
+            const std::string &_attrName,
+            const std::string &_attrValue);
 
 /**
  * @brief Finds all tags with this attribute in this node.
@@ -48,11 +46,10 @@ fn FindTag(const Tag _tag,
  * @param attr_value attribute value to search for
  * @return The all found tags with the same tag attribute name and value
  */
-auto
-fn FindAllTags(const Tag _tag,
-               GumboTag _tagName,
-               const std::string &_attrName,
-               const std::string &_attrValue) -> std::vector<Tag>;
+std::vector<Tag> FindAllTags(const Tag _tag,
+                               GumboTag _tagName,
+                               const std::string &_attrName,
+                               const std::string &_attrValue);
 
 /**
  * @brief Finds first tag whose attribute values include attr_value in this node.
@@ -66,11 +63,10 @@ fn FindAllTags(const Tag _tag,
  * @return The first found tag with attribute values that
  * include attr_value
  */
-auto
-fn FindTagAnyval(const Tag _tag,
-                 GumboTag _tagName,
-                 const std::string &_attrName,
-                 const std::string &_attrValue) -> Tag;
+Tag FindTagAnyval(const Tag _tag,
+                  GumboTag _tagName,
+                  const std::string &_attrName,
+                  const std::string &_attrValue);
 
 /**
  * @brief Finds first tag whose attribute values has substring attr_value in this node.
@@ -84,11 +80,10 @@ fn FindTagAnyval(const Tag _tag,
  * @return The first found tag with attribute value that has
  * substring of attr_value
  */
-auto
-fn FindTagAnysubval(const Tag _tag,
+Tag FindTagAnysubval(const Tag _tag,
                     GumboTag _tagName,
                     const std::string &_attrName,
-                    const std::string &_attrValue) -> Tag;
+                    const std::string &_attrValue);
 
 /**
  * @brief Finds all tags whose attribute values include attr_value in this node.
@@ -100,11 +95,10 @@ fn FindTagAnysubval(const Tag _tag,
  * @param attr_value attribute value which must be included in values
  * @return The all found tags with attribute values that include attr_value
  */
-auto
-fn FindAllTagsAnyval(const Tag _tag,
-                     GumboTag _tagName,
-                     const std::string &_attrName,
-                     const std::string &_attrValue) -> std::vector<Tag>;
+std::vector<Tag> FindAllTagsAnyval(const Tag _tag,
+                                   GumboTag _tagName,
+                                   const std::string &_attrName,
+                                   const std::string &_attrValue);
 
 /**
  * @brief Finds all tags whose attribute values has substring attr_value in this node.
@@ -116,14 +110,12 @@ fn FindAllTagsAnyval(const Tag _tag,
  * @param attr_value attribute value which must be a substring in values
  * @return The all found tags with attribute value that has substring of attr_value
  */
-auto
-fn FindAllTagsAnysubval(const Tag _tag,
-                        GumboTag _tagName,
-                        const std::string &_attrName,
-                        const std::string &_attrValue) -> std::vector<Tag>;
+std::vector<Tag> FindAllTagsAnysubval(const Tag _tag,
+                                       GumboTag _tagName,
+                                       const std::string &_attrName,
+                                       const std::string &_attrValue);
 
 
-auto
-fn GetHtmlView(const Tag &_tag) -> std::string;
+std::string GetHtmlView(const Tag &_tag);
 
 #endif // PARSER_HEADER

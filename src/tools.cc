@@ -5,8 +5,7 @@
 
 #include "../include/tools.h"
 
-auto
-fn SplitStr(const std::string &_str) -> std::vector<std::string> {
+std::vector<std::string> SplitStr(const std::string &_str) {
     if (_str.empty()) {
         return {};
     }
@@ -22,8 +21,7 @@ fn SplitStr(const std::string &_str) -> std::vector<std::string> {
     return tokens;
 }
 
-auto
-fn RemoveWhspaces(const std::string &_str) -> std::string {
+std::string RemoveWhspaces(const std::string &_str) {
     if (_str.empty()) {
         return {};
     }
@@ -52,8 +50,7 @@ fn RemoveWhspaces(const std::string &_str) -> std::string {
     return res;
 }
 
-auto
-fn EscapeHtml(const std::string_view &_str) -> std::string {
+std::string EscapeHtml(const std::string_view &_str) {
     std::string res;
     res.reserve(_str.size() + _str.size() / 4);
 
@@ -83,19 +80,17 @@ fn EscapeHtml(const std::string_view &_str) -> std::string {
     return res;
 }
 
-auto
-fn GetTagStr(const GumboStringPiece &_piece) -> std::string {
+std::string GetTagStr(const GumboStringPiece &_piece) {
     if (!_piece.data || _piece.length == 0) {
         return "";
     }
     return {_piece.data, _piece.length};
 }
 
-auto
-fn ExtractTag(const std::vector<Tag> &_tags,
-              GumboTag _tagName,
-              const std::string &_attrName,
-              const std::string &_attrValue) -> Tag {
+Tag ExtractTag(const std::vector<Tag> &_tags,
+               GumboTag _tagName,
+               const std::string &_attrName,
+               const std::string &_attrValue) {
     if (_tags.empty()) {
         return Node(nullptr);
     }

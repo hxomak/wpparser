@@ -9,8 +9,7 @@
 #include "../include/utils.h"
 
 namespace {
-    auto
-    fn __GetText(const Tag _tag, std::string &_res) -> void {
+    void __GetText(const Tag _tag, std::string &_res) {
         if (!_tag) {
             return;
         }
@@ -70,18 +69,16 @@ namespace {
     }
 } // namespace
 
-auto
-fn GetText(const Tag _tag) -> std::string {
+std::string GetText(const Tag _tag) {
     std::string res{};
     __GetText(_tag, res);
     return RemoveWhspaces(res);
 }
 
-auto
-fn FindTag(const Tag _tag,
-           GumboTag _tagName,
-           const std::string &_attrName,
-           const std::string &_attrValue) -> Tag {
+Tag FindTag(const Tag _tag,
+            GumboTag _tagName,
+            const std::string &_attrName,
+            const std::string &_attrValue) {
     if (!_tag || _tag.GetNode()->type != GUMBO_NODE_ELEMENT) {
         return nullptr;
     }
@@ -104,11 +101,10 @@ fn FindTag(const Tag _tag,
     return Tag(nullptr);
 }
 
-auto
-fn FindAllTags(const Tag _tag,
-               GumboTag _tagName,
-               const std::string &_attrName,
-               const std::string &_attrValue) -> std::vector<Tag> {
+std::vector<Tag> FindAllTags(const Tag _tag,
+                             GumboTag _tagName,
+                             const std::string &_attrName,
+                             const std::string &_attrValue) {
     if (!_tag || _tag.GetNode()->type != GUMBO_NODE_ELEMENT) {
         return {};
     }
@@ -131,18 +127,17 @@ fn FindAllTags(const Tag _tag,
 
     for (unsigned int i = 0; i < children->length; ++i) {
         std::vector<Tag> child_results = FindAllTags(static_cast<GumboNode *>(children->data[i]), _tagName,
-                                                     _attrName, _attrValue);
+                                                      _attrName, _attrValue);
         results += child_results;
     }
 
     return results;
 }
 
-auto
-fn FindTagAnyval(const Tag _tag,
-                 GumboTag _tagName,
-                 const std::string &_attrName,
-                 const std::string &_attrValue) -> Tag {
+Tag FindTagAnyval(const Tag _tag,
+                  GumboTag _tagName,
+                  const std::string &_attrName,
+                  const std::string &_attrValue) {
     if (!_tag || _tag.GetNode()->type != GUMBO_NODE_ELEMENT) {
         return nullptr;
     }
@@ -177,11 +172,10 @@ fn FindTagAnyval(const Tag _tag,
     return Tag();
 }
 
-auto
-fn FindTagAnysubval(const Tag _tag,
-                    GumboTag _tagName,
-                    const std::string &_attrName,
-                    const std::string &_attrValue) -> Tag {
+Tag FindTagAnysubval(const Tag _tag,
+                     GumboTag _tagName,
+                     const std::string &_attrName,
+                     const std::string &_attrValue) {
     if (!_tag || _tag.GetNode()->type != GUMBO_NODE_ELEMENT) {
         return nullptr;
     }
@@ -202,7 +196,7 @@ fn FindTagAnysubval(const Tag _tag,
 
     for (unsigned int i = 0; i < children->length; ++i) {
         Tag found = FindTagAnysubval(static_cast<GumboNode *>(children->data[i]), _tagName, _attrName,
-                                     _attrValue);
+                                      _attrValue);
 
         if (found) {
             return found;
@@ -212,11 +206,10 @@ fn FindTagAnysubval(const Tag _tag,
     return Tag();
 }
 
-auto
-fn FindAllTagsAnyval(const Tag _tag,
-                     GumboTag _tagName,
-                     const std::string &_attrName,
-                     const std::string &_attrValue) -> std::vector<Tag> {
+std::vector<Tag> FindAllTagsAnyval(const Tag _tag,
+                                   GumboTag _tagName,
+                                   const std::string &_attrName,
+                                   const std::string &_attrValue) {
     if (!_tag || _tag.GetNode()->type != GUMBO_NODE_ELEMENT) {
         return {};
     }
@@ -252,11 +245,10 @@ fn FindAllTagsAnyval(const Tag _tag,
     return results;
 }
 
-auto
-fn FindAllTagsAnysubval(const Tag _tag,
-                        GumboTag _tagName,
-                        const std::string &_attrName,
-                        const std::string &_attrValue) -> std::vector<Tag> {
+std::vector<Tag> FindAllTagsAnysubval(const Tag _tag,
+                                      GumboTag _tagName,
+                                      const std::string &_attrName,
+                                      const std::string &_attrValue) {
     if (!_tag || _tag.GetNode()->type != GUMBO_NODE_ELEMENT) {
         return {};
     }
@@ -286,7 +278,6 @@ fn FindAllTagsAnysubval(const Tag _tag,
     return results;
 }
 
-auto
-fn GetHtmlView(const Tag &_tag) -> std::string {
+std::string GetHtmlView(const Tag &_tag) {
     return __GetHtmlView(_tag.GetNode());
 }
