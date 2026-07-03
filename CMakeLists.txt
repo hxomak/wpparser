@@ -28,7 +28,7 @@ set_target_properties(gumbo_dll PROPERTIES
         IMPORTED_LOCATION "${CMAKE_CURRENT_SOURCE_DIR}/libs/libcurl.dll.a"
 )
 
-add_executable(test
+add_executable(project
         main.cc
         src/tools.cc
         src/Tag.cc
@@ -36,4 +36,4 @@ add_executable(test
         src/parser.cc
 )
 
-target_link_libraries(test PRIVATE gumbo curl gumbo_dll curl_dll)
+target_link_libraries(project PRIVATE gumbo curl gumbo_dll curl_dll)
