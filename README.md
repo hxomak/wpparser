@@ -184,5 +184,3 @@ std::string text = GetText(content);
 - Substring matching uses `AnySubval` functions
 - All search functions traverse DOM depth-first
 ```
-
-## Documentation
