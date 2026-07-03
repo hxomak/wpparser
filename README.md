@@ -52,7 +52,7 @@ make
 ./project
 ```
 
-## Documentation
+# Documentation
 
 ## 🌐 HTML Parser & Web Scraper
  
