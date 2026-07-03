@@ -19,7 +19,7 @@ std::string GetHtmlCode(const std::string &_url, CURL *_page) {
         curl_easy_setopt(_page, CURLOPT_FOLLOWLOCATION, 1L);
         curl_easy_setopt(_page, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36");
 
-        curl_easy_setopt(_page, CURLOPT_CAINFO, "C:\\_Download\\cacert.pem");
+        curl_easy_setopt(_page, CURLOPT_CAINFO, "../config/cacert.pem");
         curl_easy_setopt(_page, CURLOPT_SSL_VERIFYPEER, 1L);
         curl_easy_setopt(_page, CURLOPT_SSL_VERIFYHOST, 2L);
 
