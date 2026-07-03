@@ -1,81 +1,188 @@
-<h1>WebPage Parser</h1>
-This is a module for comfortable web-pages parsing. It provides convient API for curl and gumbo: extracting html code from web-page and any useful for you data from tags in html code.
-<h2>There are class provided:</h2>
-<b>Tag</b>
-<h3>With following methods in it:</h3>
+# WP-Parser
 
-    fn Tag();
+Build instructions.
 
-    fn Tag(const Node &_node);
+## Requirements
 
-    fn Tag(const Tag &_tag);
+- [Git](https://git-scm.com/)
+- [CMake](https://cmake.org/)
+- Visual Studio (Windows) or MinGW/GCC/Clang
 
-    fn Tag(GumboNode *_node);
+Check installed versions:
+```
+git --version
+cmake --version
+gcc --version
+```
 
-    void MakeRoot(const std::string &_htmlCode);
+## Windows
 
-    auto
-    fn operator=(const Node &_node) -> Tag &;
-    
-    auto
-    fn GetNode() const -> GumboNode *;
+```
+git clone https://github.com/hxomak/wpparser.git
+cd wpparser
+mkdir build && cd build
+```
 
-    GumboOutput *GetOutput();
+Generate build files:
+```
+cmake .. -G "Visual Studio <version>"   # Visual Studio
+cmake .. -G "MinGW Makefiles"           # MinGW
+```
 
-    auto
-    fn SetNode(GumboNode *_node) -> void;
+Build:
+```
+cmake --build . --config Release   # Visual Studio
+mingw32-make                       # MinGW
+```
 
-    auto
-    fn SetNode(Node _node) -> void;
+Run:
+```
+Release\project.exe   # Visual Studio
+project.exe           # MinGW
+```
 
-    auto
-    fn GetText() const -> std::string;
+## Linux
 
-    auto
-    fn FindTag(GumboTag _tag,
-               const std::string &_attrName,
-               const std::string &_attrValue) const -> Tag;
+```
+git clone https://github.com/hxomak/wpparser.git
+cd wpparser
+mkdir build && cd build
+cmake ..
+make
+./project
+```
 
-    auto
-    fn FindAllTags(GumboTag _tag,
-                   const std::string &_attrName,
-                   const std::string &_attrValue) -> std::vector<Tag>;
+## Documentation
 
-    auto
-    fn FindTagAnyval(GumboTag _tag,
-                     const std::string &_attrName,
-                     const std::string &_attrValue) const -> Tag;
+## 🌐 HTML Parser & Web Scraper
+ 
+Fast, flexible C++ library for fetching and parsing HTML with powerful DOM querying.
+ 
+Built with **libcurl** + **Gumbo HTML Parser**
+ 
+---
+ 
+## ⚡ Quick Start
+ 
+```cpp
+// Fetch HTML
+CURL* handle = curl_easy_init();
+std::string html = GetHtmlCode("https://example.com", handle);
+ 
+// Parse & search
+Tag root;
+root.MakeRoot(html);
+Tag element = FindTag(root, GUMBO_TAG_DIV, "id", "content");
+std::string text = GetText(element);
+```
+ 
+---
+ 
+## 🔍 Core Functions
+ 
+### **Fetching**
+ 
+| Function | Purpose |
+|----------|---------|
+| `GetHtmlCode(url, curl)` | Fetch HTML from URL with SSL verification & redirects |
+ 
+### **Text Extraction**
+ 
+| Function | Purpose |
+|----------|---------|
+| `GetText(tag)` | Extract all text from tag + children (normalized) |
+| `GetHtmlView(tag)` | Convert tag back to HTML markup |
+ 
+### **Searching: Exact Match**
+ 
+| Function | Purpose |
+|----------|---------|
+| `FindTag()` | Find first tag by name + exact attribute |
+| `FindAllTags()` | Find all tags by name + exact attribute |
+ 
+### **Searching: Flexible Match**
+ 
+| Function | Purpose |
+|----------|---------|
+| `FindTagAnyval()` | Match if attribute contains value (space-separated list) |
+| `FindAllTagsAnyval()` | Find all with space-delimited attribute match |
+| `FindTagAnysubval()` | Match if attribute contains substring |
+| `FindAllTagsAnysubval()` | Find all with substring attribute match |
+ 
+### **Searching: With Exclusions**
+ 
+| Function | Purpose |
+|----------|---------|
+| `FindTagWithClassExc()` | Find tag, skip branches with CSS class |
+| `FindTagWithTagExc()` | Find tag, skip branches with specific tag type |
+ 
+---
+ 
+## 🏗️ Tag Class
+ 
+### Methods
+ 
+```cpp
+void MakeRoot(const std::string& htmlCode)
+```
+Parse HTML string into DOM tree. Sets root element.
+ 
+```cpp
+GumboNode* GetNode()
+```
+Access underlying Gumbo node for direct DOM manipulation.
+ 
+---
+ 
+## 📋 Examples
+ 
+**Find div with id="main":**
+```cpp
+Tag main = FindTag(root, GUMBO_TAG_DIV, "id", "main");
+```
+ 
+**Get all links in document:**
+```cpp
+auto links = FindAllTags(root, GUMBO_TAG_A, "", "");
+```
+ 
+**Find element with class "active" (in class list):**
+```cpp
+Tag active = FindTagAnyval(root, GUMBO_TAG_DIV, "class", "active");
+```
+ 
+**Find tag containing "data-" in attribute:**
+```cpp
+Tag data = FindTagAnysubval(root, GUMBO_TAG_SPAN, "data-id", "user");
+```
+ 
+**Extract text from section (skip ads):**
+```cpp
+Tag content = root.__FindTagWithClassExc(root, GUMBO_TAG_DIV, "id", "content", "ad");
+std::string text = GetText(content);
+```
+ 
+---
+ 
+## ⚙️ Configuration
+ 
+**SSL Certificate Path:** `../config/cacert.pem`  
+**User-Agent:** `Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36`
+ 
+---
+ 
+## 🛠️ Dependencies
+ 
+- **libcurl** — HTTP requests
+- **Gumbo** — HTML5 parser
+---
+ 
+## 📝 Notes
+ 
+- `FindTag()` returns first match; use `FindAllTags()` for all matches
+- Attribute values in space-delimited lists use `AnyVal` functions
+- Substring matching uses `AnySubval` functions
+- All search functions traverse DOM depth-first
+```
 
-    auto
-    fn FindTagAnysubval(GumboTag _tag,
-                        const std::string &_attrName,
-                        const std::string &_attrValue) const -> Tag;
-
-    auto
-    fn FindAllTagsAnyval(GumboTag _tag,
-                         const std::string &_attrName,
-                         const std::string &_attrValue) const -> std::vector<Tag>;
-
-    auto
-    fn FindAllTagsAnysubval(GumboTag _tag,
-                            const std::string &_attrName,
-                            const std::string &_attrValue) const -> std::vector<Tag>;
-
-    auto
-    fn GetHtmlView() -> std::string;
-
-    Tag FindTagWithClassExc(GumboTag _targetTag, const std::string &_attrName,
-                            const std::string &_attrValue,
-                            const std::string &_excClass);
-
-    Tag FindTagWithTagExc(GumboTag _targetTag, const std::string &_attrName,
-                          const std::string &_attrValue,
-                          const GumboTag &_excTag);
-    inline explicit
-    fn operator bool() const;
-
-
-<h1>How to compile</h1>
-You are provided with CMakeLists.txt. You task is only to call cmake to compile:<br>
-<code>cmake -S . -B build_debug -G "[your build system]" -DCMAKE_MAKE_PROGRAM="[path to your build system]"</code><br>
-<code>cmake --build build_debug</code>
+## Documentation
