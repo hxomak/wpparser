@@ -18,7 +18,7 @@ gcc --version
 ## Windows
 
 ```
-git clone https://github.com/hxomak/wpparser.git
+git clone https://github.com/hxomak/web-parser.git
 cd wpparser
 mkdir build && cd build
 ```
@@ -44,7 +44,7 @@ project.exe           # MinGW
 ## Linux
 
 ```
-git clone https://github.com/hxomak/wpparser.git
+git clone https://github.com/hxomak/web-parser.git
 cd wpparser
 mkdir build && cd build
 cmake ..
