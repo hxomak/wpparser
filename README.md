@@ -1,4 +1,4 @@
-# WP-Parser
+# Web-Parser
 
 Build instructions.
 
@@ -72,8 +72,8 @@ std::string html = GetHtmlCode("https://example.com", handle);
 // Parse & search
 Tag root;
 root.MakeRoot(html);
-Tag element = FindTag(root, GUMBO_TAG_DIV, "id", "content");
-std::string text = GetText(element);
+Tag element = root.FindTag(root, GUMBO_TAG_DIV, "id", "content");
+std::string text = root.GetText();
 ```
  
 ---
@@ -90,31 +90,31 @@ std::string text = GetText(element);
  
 | Function | Purpose |
 |----------|---------|
-| `GetText(tag)` | Extract all text from tag + children (normalized) |
-| `GetHtmlView(tag)` | Convert tag back to HTML markup |
+| `tag.GetText()` | Extract all text from tag + children (normalized) |
+| `tag.GetHtmlView()` | Convert tag back to HTML markup |
  
 ### **Searching: Exact Match**
  
 | Function | Purpose |
 |----------|---------|
-| `FindTag()` | Find first tag by name + exact attribute |
-| `FindAllTags()` | Find all tags by name + exact attribute |
+| `tag.FindTag()` | Find first tag by name + exact attribute |
+| `tag.FindAllTags()` | Find all tags by name + exact attribute |
  
 ### **Searching: Flexible Match**
  
 | Function | Purpose |
 |----------|---------|
-| `FindTagAnyval()` | Match if attribute contains value (space-separated list) |
-| `FindAllTagsAnyval()` | Find all with space-delimited attribute match |
-| `FindTagAnysubval()` | Match if attribute contains substring |
-| `FindAllTagsAnysubval()` | Find all with substring attribute match |
+| `tag.FindTagAnyval()` | Match if attribute contains value (space-separated list) |
+| `tag.FindAllTagsAnyval()` | Find all with space-delimited attribute match |
+| `tag.FindTagAnysubval()` | Match if attribute contains substring |
+| `tag.FindAllTagsAnysubval()` | Find all with substring attribute match |
  
 ### **Searching: With Exclusions**
  
 | Function | Purpose |
 |----------|---------|
-| `FindTagWithClassExc()` | Find tag, skip branches with CSS class |
-| `FindTagWithTagExc()` | Find tag, skip branches with specific tag type |
+| `tag.FindTagWithClassExc()` | Find tag, skip branches with specific class |
+| `tag.FindTagWithTagExc()` | Find tag, skip branches with specific tag type |
  
 ---
  
@@ -138,28 +138,28 @@ Access underlying Gumbo node for direct DOM manipulation.
  
 **Find div with id="main":**
 ```cpp
-Tag main = FindTag(root, GUMBO_TAG_DIV, "id", "main");
+Tag main = root.FindTag(GUMBO_TAG_DIV, "id", "main");
 ```
  
 **Get all links in document:**
 ```cpp
-auto links = FindAllTags(root, GUMBO_TAG_A, "", "");
+auto links = root.FindAllTags(GUMBO_TAG_A, "", "");
 ```
  
 **Find element with class "active" (in class list):**
 ```cpp
-Tag active = FindTagAnyval(root, GUMBO_TAG_DIV, "class", "active");
+Tag active = root.FindTagAnyval(GUMBO_TAG_DIV, "class", "active");
 ```
  
 **Find tag containing "data-" in attribute:**
 ```cpp
-Tag data = FindTagAnysubval(root, GUMBO_TAG_SPAN, "data-id", "user");
+Tag data = root.FindTagAnysubval(GUMBO_TAG_SPAN, "data-id", "user");
 ```
  
 **Extract text from section (skip ads):**
 ```cpp
-Tag content = root.__FindTagWithClassExc(root, GUMBO_TAG_DIV, "id", "content", "ad");
-std::string text = GetText(content);
+Tag content = root.FindTagWithClassExc(GUMBO_TAG_DIV, "id", "content", "ad");
+std::string text = content.GetText();
 ```
  
 ---
@@ -183,4 +183,3 @@ std::string text = GetText(content);
 - Attribute values in space-delimited lists use `AnyVal` functions
 - Substring matching uses `AnySubval` functions
 - All search functions traverse DOM depth-first
-```
